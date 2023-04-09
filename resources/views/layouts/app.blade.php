@@ -10,10 +10,13 @@
           crossorigin="anonymous"/>
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+{{--    <link href="{{ mix('css/third-party.css') }}" rel="stylesheet">--}}
 
     @stack('third_party_stylesheets')
 
     @stack('page_css')
+    @livewireStyles
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -70,19 +73,23 @@
     </div>
 
     <!-- Main Footer -->
-    <footer class="main-footer">
-        <div class="float-right d-none d-sm-block">
-            <b>Version</b> 3.0.5
-        </div>
-        <strong>Copyright &copy; 2014-2022 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights
-        reserved.
-    </footer>
+{{--    <footer class="main-footer">--}}
+{{--        <div class="float-right d-none d-sm-block">--}}
+{{--            <b>Version</b> 3.0.5--}}
+{{--        </div>--}}
+{{--        <strong>Copyright &copy; 2014-2022 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights--}}
+{{--        reserved.--}}
+{{--    </footer>--}}
 </div>
 
 <script src="{{ mix('js/app.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
 @stack('third_party_scripts')
 
+{{--<script src="{{ asset('js/third-party.js') }}"></script>--}}
 @stack('page_scripts')
+
+@livewireScripts
 </body>
 </html>

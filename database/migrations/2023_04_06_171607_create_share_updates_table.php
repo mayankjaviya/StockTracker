@@ -15,6 +15,14 @@ return new class extends Migration
     {
         Schema::create('share_updates', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('symbol');
+            $table->dateTime('trade_date');
+            $table->double('open');
+            $table->double('close');
+            $table->double('high');
+            $table->double('low');
+            $table->double('current_price');
             $table->timestamps();
         });
     }

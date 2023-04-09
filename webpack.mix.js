@@ -11,5 +11,15 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.js(['resources/js/app.js',
+], 'public/js');
+
+mix.js(
+    'node_modules/select2/dist/js/select2.min.js','public/js/third-party.js'
+);
+mix.styles('node_modules/select2/dist/css/select2.min.css', 'public/css/third-party.css')
+
+mix.js('resources/assets/js/share_update/share_update.js', 'public/assets/js/share_update.js');
+
+mix.sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/assets/css/share_update.scss', 'public/assets/css/share_update.css');

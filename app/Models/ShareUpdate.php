@@ -8,4 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class ShareUpdate extends Model
 {
     use HasFactory;
+
+    protected $fillable=[
+        'name',
+        'symbol',
+        'trade_date',
+        'open',
+        'close',
+        'high',
+        'low',
+        'current_price',
+    ];
+
+    const SHARES = [
+        'TIINDIA.bse' => 'Tube Investments',
+        'TATAMOTORS.bse' => 'Tata Motors',
+        'TATAPOWER.bse' => 'Tata Power',
+    ];
 }
