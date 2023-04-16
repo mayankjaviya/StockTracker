@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <title>{{ config('app.name') }}</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta name="csrf-token" content="{{ csrf_token() }}"/>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
           integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
           crossorigin="anonymous"/>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-{{--    <link href="{{ mix('css/third-party.css') }}" rel="stylesheet">--}}
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+    {{--    <link href="{{ mix('css/third-party.css') }}" rel="stylesheet">--}}
     @stack('third_party_stylesheets')
 
     @stack('page_css')
@@ -69,22 +71,35 @@
 
 <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        @yield('content')
+        <div class="container">
+            @include('layouts.toast_message')
+            @yield('content')
+        </div>
     </div>
 
     <!-- Main Footer -->
-{{--    <footer class="main-footer">--}}
-{{--        <div class="float-right d-none d-sm-block">--}}
-{{--            <b>Version</b> 3.0.5--}}
-{{--        </div>--}}
-{{--        <strong>Copyright &copy; 2014-2022 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights--}}
-{{--        reserved.--}}
-{{--    </footer>--}}
+    {{--    <footer class="main-footer">--}}
+    {{--        <div class="float-right d-none d-sm-block">--}}
+    {{--            <b>Version</b> 3.0.5--}}
+    {{--        </div>--}}
+    {{--        <strong>Copyright &copy; 2014-2022 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights--}}
+    {{--        reserved.--}}
+    {{--    </footer>--}}
 </div>
-
+@routes
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 <script src="{{ mix('js/app.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
+<script type="text/javascript">
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
+<script src="{{ mix('assets/js/custom.js') }}"></script>
 @stack('third_party_scripts')
 
 {{--<script src="{{ asset('js/third-party.js') }}"></script>--}}

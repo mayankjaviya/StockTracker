@@ -19,7 +19,9 @@ mix.js(
 );
 mix.styles('node_modules/select2/dist/css/select2.min.css', 'public/css/third-party.css')
 
-mix.js('resources/assets/js/share_update/share_update.js', 'public/assets/js/share_update.js');
+mix.js('resources/assets/js/custom.js', 'public/assets/js/custom.js')
+    .js('resources/assets/js/share_update/share_update.js', 'public/assets/js/share_update.js')
+    .js('resources/assets/js/my_shares/my_shares.js', 'public/assets/js/my_shares.js');
 
 mix.sass('resources/sass/app.scss', 'public/css')
     .sass('resources/assets/css/share_update.scss', 'public/assets/css/share_update.css');

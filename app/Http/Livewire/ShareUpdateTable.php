@@ -2,26 +2,22 @@
 
 namespace App\Http\Livewire;
 
-use Illuminate\Database\Eloquent\Builder;
-use Rappasoft\LaravelLivewireTables\DataTableComponent;
-use Rappasoft\LaravelLivewireTables\Views\Column;
 use App\Models\ShareUpdate;
+use Illuminate\Database\Eloquent\Builder;
+use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class ShareUpdateTable extends DataTableComponent
+class ShareUpdateTable extends LivewireCustomComponent
 {
-    public bool $showSearch = false;
-
-    public bool $showPerPage = false;
-
-    public bool $showSorting = false;
-
-    public $headerTopClass = 'p-0';
 
     protected $listeners = ['shareFilter' => 'shareFilter'];
 
+    public string $defaultSortColumn = 'trade_date';
+    public string $defaultSortDirection = 'desc';
+
     protected $shareFilter;
 
-    function shareFilter($filter){
+    function shareFilter($filter)
+    {
         $this->shareFilter = $filter;
     }
 
@@ -45,7 +41,7 @@ class ShareUpdateTable extends DataTableComponent
 
     public function query(): Builder
     {
-        $query = ShareUpdate::query();
+        $query = ShareUpdate::with('share');
 
         $query->when(!empty($this->shareFilter),function($q){
             $q->where('name',$this->shareFilter);

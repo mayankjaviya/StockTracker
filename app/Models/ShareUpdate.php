@@ -4,14 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class ShareUpdate extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-        'name',
-        'symbol',
+    protected $fillable = [
+        'share_id',
         'trade_date',
         'open',
         'close',
@@ -25,4 +25,9 @@ class ShareUpdate extends Model
         'TATAMOTORS.bse' => 'Tata Motors',
         'TATAPOWER.bse' => 'Tata Power',
     ];
+
+    public function share(): BelongsTo
+    {
+        return $this->belongsTo(MyShare::class, 'share_id', 'id');
+    }
 }

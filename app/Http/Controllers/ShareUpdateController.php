@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
-class ShareUpdateController extends Controller
+class ShareUpdateController extends BaseController
 {
-    public function index(){
+    public function index()
+    {
         return view('shares.index');
     }
 }
