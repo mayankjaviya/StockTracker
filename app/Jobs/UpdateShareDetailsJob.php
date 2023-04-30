@@ -15,16 +15,19 @@ class UpdateShareDetailsJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $shares = [];
+    public array|string $shares = [];
+    public array|string $shareName = [];
 
     /**
      * Create a new job instance.
      *
      * @param string|array $shares
+     * @param array|string|null $shareName
      */
-    public function __construct(array|string $shares)
+    public function __construct(array|string $shares,array|string $shareName = null)
     {
         $this->shares = is_array($shares) ? $shares : [$shares];
+        $this->shareName = is_array($shareName) ? $shareName : [$shareName];
     }
 
     /**
@@ -35,10 +38,12 @@ class UpdateShareDetailsJob implements ShouldQueue
     public function handle()
     {
         $result = [];
-        foreach ($this->shares as $share) {
+        ini_set('max_execution_time',0);
+        foreach ($this->shares as $key => $share) {
             $json = file_get_contents('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=' . $share . '&outputsize=10&apikey=' . env("ALPHA_VANTAGE_API_KEY"));
 
             $result[$share] = json_decode($json, true);
+            $result[$share]['name'] = $this->shareName[$key];
         }
 //        "2023-03-31" => array:8 [▼
 //        "1. open" => "2575.0"
@@ -50,21 +55,19 @@ class UpdateShareDetailsJob implements ShouldQueue
 //        "7. dividend amount" => "0.0000"
 //        "8. split coefficient" => "1.0"
 //      ]
-        $i = 0;
         foreach ($result as $share => $data) {
-            if (empty($data)) {
+            if (empty($data) || !isset($data['Time Series (Daily)'])) {
                 continue;
             }
             foreach ($data['Time Series (Daily)'] as $date => $dateWiseData) {
                 $input[$share][$date]['symbol'] = $share;
-                $input[$share][$date]['name'] = $share;
+                $input[$share][$date]['name'] = $data['name'];
                 $input[$share][$date]['open'] = $dateWiseData['1. open'];
                 $input[$share][$date]['high'] = $dateWiseData['2. high'];
                 $input[$share][$date]['low'] = $dateWiseData['3. low'];
                 $input[$share][$date]['close'] = $dateWiseData['4. close'];
                 $input[$share][$date]['current_price'] = $dateWiseData['5. adjusted close'];
                 $input[$share][$date]['trade_date'] = Carbon::parse($date);
-                $i++;
             }
         }
 
@@ -79,11 +82,8 @@ class UpdateShareDetailsJob implements ShouldQueue
             ]);
             foreach ($record as $dailyRecord) {
                 $dailyRecord['share_id'] = $myShare->id;
-                ShareUpdate::firstOrCreate(array_slice($dailyRecord, 2), $dailyRecord);
+                ShareUpdate::updateOrCreate(array_slice($dailyRecord, 2), $dailyRecord);
             }
-
         }
-
-
     }
 }

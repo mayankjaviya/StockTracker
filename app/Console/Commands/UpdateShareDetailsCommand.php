@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Jobs\UpdateShareDetailsJob;
 use App\Models\MyShare;
 use Illuminate\Console\Command;
+use Illuminate\Support\Arr;
 
 class UpdateShareDetailsCommand extends Command
 {
@@ -30,11 +31,15 @@ class UpdateShareDetailsCommand extends Command
     public function handle()
     {
 
-        $shares = MyShare::pluck('symbol')->toArray();
-
         $this->info('Running daily share update command');
-
-        UpdateShareDetailsJob::dispatch($shares);
+        MyShare::chunk(5,function($getShares){
+            if ($getShares->count() < 5) {
+                $this->info('Loading more...');
+                sleep(60);
+            }
+            list($shareNames, $symbols) = Arr::divide($getShares->pluck('symbol','name')->toArray());
+            UpdateShareDetailsJob::dispatch($symbols,$shareNames);
+        });
 
         $this->info(' Share Details Updated Successfully.');
 

@@ -1,4 +1,10 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/js/third-party.js": "/js/third-party.js",
+    "/assets/js/custom.js": "/assets/js/custom.js",
+    "/assets/js/share_update.js": "/assets/js/share_update.js",
+    "/assets/js/my_shares.js": "/assets/js/my_shares.js",
+    "/css/app.css": "/css/app.css",
+    "/assets/css/share_update.css": "/assets/css/share_update.css",
+    "/css/third-party.css": "/css/third-party.css"
 }

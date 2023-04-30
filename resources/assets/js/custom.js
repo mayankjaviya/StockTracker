@@ -9,6 +9,11 @@ window.displayErrorMessage = (message) => {
 
 }
 
+$('.toast').addEventListener('hidden.bs.toast', function () {
+    console.log('sf')
+    $(this).removeClass('bg-danger bg-success');
+})
+
 window.displayToastMessage = (message) => {
     $('.toast-body').text(message);
     $('.toast').toast('show');

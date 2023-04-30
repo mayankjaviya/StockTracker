@@ -12,7 +12,11 @@
                         data-bs-target="#addMyShareModal">Add new
                 </button>
             </div>
-            <livewire:my-shares-table/>
+            <div class="card p-4">
+                <div class="card-body">
+                    <livewire:my-shares-table/>
+                </div>
+            </div>
         </div>
     </div>
     @include('myShares.add-modal')

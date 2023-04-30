@@ -13,19 +13,16 @@ class ShareUpdateTable extends LivewireCustomComponent
 
     public string $defaultSortColumn = 'trade_date';
     public string $defaultSortDirection = 'desc';
+    public int $shareId;
 
-    protected $shareFilter;
 
-    function shareFilter($filter)
-    {
-        $this->shareFilter = $filter;
+    public function mount(int $shareId){
+        $this->shareId = $shareId;
     }
 
     public function columns(): array
     {
         return [
-            Column::make("Name", "name")
-                ->sortable(),
             Column::make("Trade date", "trade_date")
                 ->sortable(),
             Column::make("High", "high")
@@ -43,8 +40,8 @@ class ShareUpdateTable extends LivewireCustomComponent
     {
         $query = ShareUpdate::with('share');
 
-        $query->when(!empty($this->shareFilter),function($q){
-            $q->where('name',$this->shareFilter);
+        $query->when(!empty($this->shareId),function($q){
+            $q->where('share_id',$this->shareId);
         });
 
         return $query;

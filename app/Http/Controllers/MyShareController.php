@@ -37,6 +37,7 @@ class MyShareController extends BaseController
     public function store(Request $request)
     {
         $symbol = $request->get('symbol');
+        ini_set('max_execution_time',0);
         $json = file_get_contents('https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=' . $symbol . '&apikey=' . env('ALPHA_VANTAGE_API_KEY'));
         $data = json_decode($json, true);
 
@@ -44,7 +45,8 @@ class MyShareController extends BaseController
             return $this->sendError('We could not find any shares with the symbol provided. Please try again.');
         }
         $result = $data['bestMatches'][0];
-        UpdateShareDetailsJob::dispatch($symbol);
+        $name = $result['2. name'];
+        UpdateShareDetailsJob::dispatch($symbol,$name);
 
         return $this->sendSuccess('Share added Successfully.');
 
@@ -58,7 +60,7 @@ class MyShareController extends BaseController
      */
     public function show(MyShare $myShare)
     {
-        //
+        return view('myShares.share_details',compact('myShare'));
     }
 
     /**
