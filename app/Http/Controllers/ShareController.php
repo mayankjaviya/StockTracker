@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\UpdateShareDetailsJob;
-use App\Models\MyShare;
+use App\Models\Share;
 use Illuminate\Http\Request;
 
-class MyShareController extends BaseController
+class ShareController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class MyShareController extends BaseController
      */
     public function index()
     {
-        return view('myShares.index');
+
+        return view('shares.index');
     }
 
     /**
@@ -55,21 +56,21 @@ class MyShareController extends BaseController
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\MyShare $myShare
+     * @param \App\Models\Share $share
      * @return \Illuminate\Http\Response
      */
-    public function show(MyShare $myShare)
+    public function show(Share $share)
     {
-        return view('myShares.share_details',compact('myShare'));
+        return view('shares.share_details',compact('share'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param \App\Models\MyShare $myShare
+     * @param \App\Models\Share $share
      * @return \Illuminate\Http\Response
      */
-    public function edit(MyShare $myShare)
+    public function edit(Share $share)
     {
         //
     }
@@ -78,10 +79,10 @@ class MyShareController extends BaseController
      * Update the specified resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\MyShare $myShare
+     * @param \App\Models\Share $share
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MyShare $myShare)
+    public function update(Request $request, Share $share)
     {
         //
     }
@@ -89,10 +90,10 @@ class MyShareController extends BaseController
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\MyShare $myShare
+     * @param \App\Models\Share $share
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MyShare $myShare)
+    public function destroy(Share $share)
     {
         //
     }

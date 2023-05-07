@@ -1,27 +1,23 @@
 @extends('layouts.app')
 
-@push('page_css')
-    <link rel="stylesheet" href="{{ asset('assets/css/share_update.css') }}">
-@endpush
-
 @section('content')
-    <div class="container share-update">
+    <div class="container shares">
         <div class="pt-5">
             <div class="d-flex justify-content-end my-2">
-            <div class=" col-md-4">
-                <select id="filterByShare" class="filterByShare">
-                    <option value="0">Select any option</option>
-                    @foreach(\App\Models\ShareUpdate::SHARES as $share)
-                        <option value="{{ $share }}">{{ $share }}</option>
-                    @endforeach
-                </select>
+                <button class="btn btn-primary" id="addShareBtn" data-bs-toggle="modal"
+                        data-bs-target="#addShareModal">Add new
+                </button>
             </div>
+            <div class="card p-4">
+                <div class="card-body">
+                    <livewire:shares-table/>
+                </div>
             </div>
-            <livewire:share-update-table />
         </div>
     </div>
+    @include('shares.add-modal')
 @endsection
 
 @push('page_scripts')
-    <script src="{{ mix('assets/js/share_update.js') }}"></script>
+    <script src="{{ asset('assets/js/shares.js') }}"></script>
 @endpush

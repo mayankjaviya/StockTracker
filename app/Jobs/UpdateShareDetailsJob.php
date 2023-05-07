@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Models\MyShare;
+use App\Models\Share;
 use App\Models\ShareUpdate;
 use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
@@ -73,7 +73,7 @@ class UpdateShareDetailsJob implements ShouldQueue
 
         foreach ($input as $key => $record) {
             $shareDetails = $record[array_key_first($record)];
-            $myShare = MyShare::updateOrCreate([
+            $share = Share::updateOrCreate([
                 'symbol' => $key
             ], [
                 'name' => $shareDetails['name'],
@@ -81,7 +81,7 @@ class UpdateShareDetailsJob implements ShouldQueue
                 'current_price' => $shareDetails['current_price'],
             ]);
             foreach ($record as $dailyRecord) {
-                $dailyRecord['share_id'] = $myShare->id;
+                $dailyRecord['share_id'] = $share->id;
                 ShareUpdate::updateOrCreate(array_slice($dailyRecord, 2), $dailyRecord);
             }
         }

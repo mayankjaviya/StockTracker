@@ -1,8 +1,8 @@
-$('#addMyShareForm').on('submit', function (e) {
+$('#addShareForm').on('submit', function (e) {
     e.preventDefault()
 
     $.ajax({
-        url: route('my-shares.store'),
+        url: route('shares.store'),
         type: 'post',
         data: $(this).serialize(),
         success: function (result) {

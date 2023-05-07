@@ -5,7 +5,7 @@ namespace App\Http\Livewire;
 use Illuminate\Support\Str;
 use Livewire\Component;
 
-class MyShares extends Component
+class Shares extends Component
 {
     public string $searchSymbol = '';
 
@@ -17,6 +17,6 @@ class MyShares extends Component
             $data = json_decode($json, true);
             $sharesArray = $data['bestMatches'] ?? [];
         }
-        return view('livewire.my-shares', compact('sharesArray'));
+        return view('livewire.shares', compact('sharesArray'));
     }
 }

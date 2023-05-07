@@ -28,6 +28,6 @@ class ShareUpdate extends Model
 
     public function share(): BelongsTo
     {
-        return $this->belongsTo(MyShare::class, 'share_id', 'id');
+        return $this->belongsTo(Share::class, 'share_id', 'id');
     }
 }

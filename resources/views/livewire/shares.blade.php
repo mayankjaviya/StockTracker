@@ -1,7 +1,7 @@
 <div>
     {{-- To attain knowledge, add things every day; To attain wisdom, subtract things every day. --}}
 
-    <form id="addMyShareForm">
+    <form id="addShareForm">
         <div class="modal-body p-4">
             <label class="form-label">Share Symbol</label>
             <input name="symbol" class="form-control" id="shareSymbol" placeholder="eg. TATAPOWER.bse"

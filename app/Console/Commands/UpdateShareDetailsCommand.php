@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Jobs\UpdateShareDetailsJob;
-use App\Models\MyShare;
+use App\Models\Share;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
 
@@ -32,7 +32,7 @@ class UpdateShareDetailsCommand extends Command
     {
 
         $this->info('Running daily share update command');
-        MyShare::chunk(5,function($getShares){
+        Share::chunk(5,function($getShares){
             if ($getShares->count() < 5) {
                 $this->info('Loading more...');
                 sleep(60);

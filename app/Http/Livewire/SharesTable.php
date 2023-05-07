@@ -2,11 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\MyShare;
+use App\Models\Share;
 use Illuminate\Database\Eloquent\Builder;
 use Rappasoft\LaravelLivewireTables\Views\Column;
 
-class MySharesTable extends LivewireCustomComponent
+class SharesTable extends LivewireCustomComponent
 {
 
     protected $listeners = ['refresh' => '$refresh'];
@@ -25,11 +25,11 @@ class MySharesTable extends LivewireCustomComponent
 
     public function query(): Builder
     {
-        return MyShare::query();
+        return Share::query();
     }
 
     public function rowView(): string
     {
-        return 'livewire-tables.rows.my_shares_table';
+        return 'livewire-tables.rows.shares_table';
     }
 }

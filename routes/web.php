@@ -18,6 +18,6 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('my-shares', \App\Http\Controllers\MyShareController::class);
+Route::resource('shares', \App\Http\Controllers\ShareController::class);
 
 Auth::routes();
